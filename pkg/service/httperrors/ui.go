@@ -26,8 +26,8 @@ func (e *httpError) StatusCode() int {
 }
 
 type errorResponse struct {
-	Error            bool              `json:"error"`
-	ErrorText        string            `json:"errorText"`
+	Error     bool   `json:"error"`
+	ErrorText string `json:"errorText"`
 }
 
 // ErrorProcessor ...

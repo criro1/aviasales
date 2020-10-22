@@ -26,8 +26,8 @@ type loadTransport struct {
 // DecodeRequest method for decoding requests on server side
 func (t *loadTransport) DecodeRequest(ctx *fasthttp.RequestCtx, r *fasthttp.Request) (words []string, err error) {
 	tmp := r.Body()
-	if tmp[0] != '[' || tmp[len(tmp)-1] != ']' || bytes.Count(tmp, []byte(`"`)) % 2 == 1 || bytes.Count(tmp, []byte(`"`)) / 2 - 1 != bytes.Count(tmp, []byte(",")) {
-		err = fmt.Errorf("error format of the body")
+	if tmp[0] != '[' || tmp[len(tmp)-1] != ']' || bytes.Count(tmp, []byte(`"`))%2 == 1 || bytes.Count(tmp, []byte(`"`))/2-1 != bytes.Count(tmp, []byte(",")) {
+		err = fmt.Errorf("Error: format of the body")
 		return
 	}
 	str := string(tmp[2 : len(tmp)-2])

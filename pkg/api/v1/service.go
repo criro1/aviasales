@@ -12,9 +12,16 @@ const (
 	HTTPStatusInternalServerError = http.StatusInternalServerError
 )
 
+// GetResponse ...
+type GetResponse struct {
+	Data      Anagrams `json:"data"`
+	Error     bool     `json:"error"`
+	ErrorText string   `json:"errorText"`
+}
+
 // Anagrams ...
 type Anagrams struct {
-	Anagram []string
+	Anagram []string `json:"anagram"`
 }
 
 // ErrMap ...

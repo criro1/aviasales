@@ -53,6 +53,8 @@ func main() {
 	httpserver.New(
 		router,
 		svc,
+		httperrors.DecodeJSONErrorCreator,
+		httperrors.EncodeJSONErrorCreator,
 		errorProcessor,
 	)
 

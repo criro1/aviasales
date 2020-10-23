@@ -11,7 +11,7 @@ import (
 // Service ...
 type Service interface {
 	Load(ctx context.Context, words []string) (err error)
-	Get(ctx context.Context, word *string) (response v1.Anagrams, err error)
+	Get(ctx context.Context, word *string) (response v1.GetResponse, err error)
 }
 
 type service struct {
@@ -29,7 +29,7 @@ func (s *service) Load(ctx context.Context, words []string) (err error) {
 }
 
 // Get ...
-func (s *service) Get(ctx context.Context, word *string) (response v1.Anagrams, err error) {
+func (s *service) Get(ctx context.Context, word *string) (response v1.GetResponse, err error) {
 	if word == nil {
 		return
 	}
@@ -44,7 +44,7 @@ func (s *service) Get(ctx context.Context, word *string) (response v1.Anagrams, 
 		sort.Strings(keySplit)
 		keySort := strings.Join(keySplit, "")
 		if *word == keySort {
-			response.Anagram = append(response.Anagram, key)
+			response.Data.Anagram = append(response.Data.Anagram, key)
 		}
 	}
 	return

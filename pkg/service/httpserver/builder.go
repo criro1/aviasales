@@ -24,12 +24,17 @@ type errorProcessor interface {
 type errorCreator func(err error) error
 
 // New ...
-func New(router *fasthttprouter.Router, svc service, errorProcessor errorProcessor) {
+func New(router *fasthttprouter.Router, svc service, decodeJSONErrorCreator errorCreator, encodeJSONErrorCreator errorCreator, errorProcessor errorProcessor) {
 
-	loadTransport := NewLoadTransport()
+	loadTransport := NewLoadTransport(
+		decodeJSONErrorCreator,
+	)
 	router.Handle(httpMethodLoad, uriPathLoad, NewLoad(loadTransport, svc, errorProcessor))
 
-	getTransport := NewGetTransport()
+	getTransport := NewGetTransport(
+
+		encodeJSONErrorCreator,
+	)
 	router.Handle(httpMethodGet, uriPathGet, NewGet(getTransport, svc, errorProcessor))
 
 	router.Handle("GET", "/debug/pprof/", fasthttpadaptor.NewFastHTTPHandlerFunc(pprof.Index))

@@ -11,7 +11,7 @@ import (
 
 type service interface {
 	Load(ctx context.Context, words []string) (err error)
-	Get(ctx context.Context, word *string) (response v1.Anagrams, err error)
+	Get(ctx context.Context, word *string) (response v1.GetResponse, err error)
 }
 
 type load struct {
@@ -64,7 +64,7 @@ type get struct {
 func (s *get) ServeHTTP(ctx *fasthttp.RequestCtx) {
 	var (
 		word     *string
-		response v1.Anagrams
+		response v1.GetResponse
 		err      error
 	)
 	word, err = s.transport.DecodeRequest(ctx, &ctx.Request)
